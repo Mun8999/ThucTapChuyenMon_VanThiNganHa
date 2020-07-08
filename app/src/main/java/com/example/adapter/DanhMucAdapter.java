@@ -18,6 +18,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import ultil.getConnect;
+
 public class DanhMucAdapter extends RecyclerView.Adapter<DanhMucAdapter.ViewHolder>{
     private Context context;
     private ArrayList<DanhMuc> dsDanhMuc;
@@ -39,8 +41,11 @@ public class DanhMucAdapter extends RecyclerView.Adapter<DanhMucAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         DanhMuc danhMuc=dsDanhMuc.get(position);
+        getConnect connect=new getConnect();
+        connect.setHost("192.168.1.102");
+        connect.setUrl("dmw");
         Picasso.get()
-                .load("http://192.168.1.137/img/image/danhmuc/white/"+danhMuc.getHinhDanhMuc())
+                .load(connect.getUrl()+danhMuc.getHinhDanhMuc())
                 .placeholder(R.drawable.loader)
                 .error(R.drawable.noimage)
                 .into(holder.imv);
