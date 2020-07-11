@@ -1,14 +1,43 @@
 package com.example.model;
 
-public class SanPham {
+import java.io.Serializable;
+
+public class SanPham implements Serializable {
     private int maSp;
     private String tenSp;
     private String hinhSp;
     private int gia;
     private int danhGia;
-    private int maLoaiSp;
+    private String maLoaiSp;
+    private int soLuongMua;
+    private int soLuongTon;
+
+    public int getSoLuongMua() {
+        return soLuongMua;
+    }
+
+    public void setSoLuongMua(int soLuongMua) {
+        this.soLuongMua = soLuongMua;
+    }
+
+    public int getSoLuongTon() {
+        return soLuongTon;
+    }
+
+    public void setSoLuongTon(int soLuongTon) {
+        this.soLuongTon = soLuongTon;
+    }
 
     public SanPham() {
+    }
+
+    public SanPham(int maSp, String tenSp, String hinhSp, int gia, int danhGia, int soLuongTon) {
+        this.maSp = maSp;
+        this.tenSp = tenSp;
+        this.hinhSp = hinhSp;
+        this.gia = gia;
+        this.danhGia = danhGia;
+        this.soLuongTon = soLuongTon;
     }
 
     public SanPham(int maSp, String tenSp, String hinhSp, int gia, int danhGia) {
@@ -59,11 +88,11 @@ public class SanPham {
         this.danhGia = danhGia;
     }
 
-    public int getMaLoaiSp() {
+    public String getMaLoaiSp() {
         return maLoaiSp;
     }
 
-    public void setMaLoaiSp(int maLoaiSp) {
+    public void setMaLoaiSp(String maLoaiSp) {
         this.maLoaiSp = maLoaiSp;
     }
 }

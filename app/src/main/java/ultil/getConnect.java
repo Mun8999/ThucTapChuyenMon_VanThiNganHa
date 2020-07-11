@@ -1,11 +1,11 @@
 package ultil;
 
 public class getConnect {
-    private String host;
+    private String host="192.168.1.109";
     private String url;
 
     public getConnect setHost(String host) {
-        this.host = host;
+        this.host =host ;
         return null;
     }
 

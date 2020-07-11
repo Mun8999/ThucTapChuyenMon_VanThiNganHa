@@ -8,41 +8,52 @@
 
     <EditText
         android:id="@+id/edtTimKiem"
-        android:layout_width="270dp"
+        android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
-        android:ems="10"
+        android:layout_marginRight="120dp"
         android:hint="Tìm kiếm"
         android:inputType="textPersonName"
         android:textSize="16dp"
-        app:layout_constraintHorizontal_bias="0.0"
+        android:background="@drawable/custom_timkiem"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageButton
-        android:id="@+id/btnTimKiem"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="16dp"
-        android:adjustViewBounds="true"
-        android:scaleType="fitCenter"
-        android:src="@drawable/search"
-        app:layout_constraintLeft_toRightOf="@id/edtTimKiem"
-        app:layout_constraintTop_toTopOf="parent" />
-    <ImageButton
+    <ImageView
         android:id="@+id/btnTaiKhoan"
         android:layout_width="40dp"
         android:layout_height="40dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="65dp"
         android:scaleType="fitCenter"
         android:src="@drawable/account"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <ImageView
+        android:id="@+id/btnGioHang"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_marginTop="16dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="16dp"/>
+        android:layout_marginRight="16dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/giohang"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/txtSoLuong_GioHang"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/soluong_giohang_bg"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="0"
+        android:textSize="15sp"
+        android:textColor="#ffffff"
+        android:textAlignment="center"
+        android:textStyle="bold"/>
     <TextView
         android:id="@+id/txtLoiChao"
         android:layout_width="200dp"
@@ -58,13 +69,16 @@
     <ViewFlipper
         android:id="@+id/vfpQuangCao"
         android:layout_width="match_parent"
-        android:layout_height="180dp"
+        android:layout_height="190dp"
         app:layout_constraintTop_toBottomOf="@+id/txtLoiChao"
         android:layout_marginTop="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:background="@drawable/vfp_bg"
-        />
+        android:inAnimation="@anim/fragment_fade_enter"
+        android:outAnimation="@anim/fragment_fade_exit">
+
+    </ViewFlipper>
 
     <androidx.recyclerview.widget.RecyclerView
         android:paddingLeft="10dp"
@@ -82,8 +96,23 @@
         android:id="@+id/lvSanPham"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        app:layout_constraintTop_toBottomOf="@id/rcvDanhMuc"
         android:layout_marginTop="16dp"
+        android:listSelector="@color/colorAccent"
+        app:layout_constraintTop_toBottomOf="@id/rcvDanhMuc"
+        tools:layout_editor_absoluteX="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"/>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginLeft="223dp"
+        android:layout_marginBottom="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/edtTimKiem"
+        app:layout_constraintEnd_toEndOf="@+id/edtTimKiem"
+        app:layout_constraintStart_toStartOf="@+id/edtTimKiem"
+        app:layout_constraintTop_toTopOf="@+id/edtTimKiem"
+        app:srcCompat="@drawable/search" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
