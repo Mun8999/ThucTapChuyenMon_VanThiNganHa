@@ -8,8 +8,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -29,8 +32,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.adapter.DanhMucAdapter;
+import com.example.adapter.GioHangAdapter;
 import com.example.adapter.SanPhamAdapter;
+import com.example.giohang.Databases;
 import com.example.model.DanhMuc;
+import com.example.model.GioHang;
 import com.example.model.SanPham;
 
 import org.json.JSONArray;
@@ -50,6 +56,7 @@ import java.util.ArrayList;
 import ultil.getConnect;
 
 public class MainActivity extends AppCompatActivity {
+    public static Databases databases;
     ViewFlipper viewFlipper;
     ListView lvSanPham;
     public static ArrayList<SanPham> dsSanPham;
@@ -60,6 +67,8 @@ public class MainActivity extends AppCompatActivity {
     public static int gia = 0;
     public static int danhGia = 0;
     public static int slTon = 0;
+    public static ArrayList<GioHang> dsGioHang;
+    GioHangAdapter gioHangAdapter;
 
     ArrayList<DanhMuc> dsDanhMuc;
     DanhMucAdapter danhMucAdapter;
@@ -70,17 +79,21 @@ public class MainActivity extends AppCompatActivity {
 
     public static TextView txtSoLuong_GioHang;
     public static int soLuongGioHang=0;
+
     SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         addViews();
+        PreparedDB();
         getDuLieuDanhMuc();
         getDuLieuSanPham();
         actionViewFliper();
         addEvents();
+
 //        sharedPreferences=getSharedPreferences("soluong",soLuongGioHang);
 //        SharedPreferences.Editor editor = sharedPreferences.edit();
 //        editor.putInt("soluong",soLuongGioHang);
@@ -97,7 +110,28 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        txtSoLuong_GioHang.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                soLuongGioHang=Integer.parseInt(txtSoLuong_GioHang.getText().toString());
+                Toast.makeText(MainActivity.this, "textchange"+soLuongGioHang, Toast.LENGTH_LONG).show();
+                sharedPreferences=getSharedPreferences("dulieu",MODE_PRIVATE);
+                editor=sharedPreferences.edit();
+                editor.putInt("soluonggiohang",soLuongGioHang);
+                editor.commit();
+                Toast.makeText(MainActivity.this, "share preferences"+sharedPreferences.getInt("ha",0), Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+        //int t=sharedPreferences.getInt("ha",0);
+        //txtSoLuong_GioHang.setText(t+"");
     }
 
 
@@ -125,10 +159,15 @@ public class MainActivity extends AppCompatActivity {
         rcvDanhMuc = findViewById(R.id.rcvDanhMuc);
         lvSanPham = findViewById(R.id.lvSanPham);
         viewFlipper = findViewById(R.id.vfpQuangCao);
+
         txtSoLuong_GioHang=findViewById(R.id.txtSoLuong_GioHang);
-        //soLuongGioHang=sharedPreferences.getInt("soluong",soLuongGioHang);
+        sharedPreferences=getSharedPreferences("dulieu",MODE_PRIVATE);
+        soLuongGioHang=sharedPreferences.getInt("soluonggiohang",0);
+        txtSoLuong_GioHang.setText(soLuongGioHang+"");
+
         dsDanhMuc = new ArrayList<>();
         dsSanPham = new ArrayList<>();
+        dsGioHang=new ArrayList<>();
         Toast.makeText(this, dsSanPham.size() + "", Toast.LENGTH_SHORT).show();
         danhMucAdapter = new DanhMucAdapter(this, dsDanhMuc);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
@@ -138,8 +177,42 @@ public class MainActivity extends AppCompatActivity {
         sanPhamAdapter = new SanPhamAdapter(this, dsSanPham);
         lvSanPham.setAdapter(sanPhamAdapter);
     }
+    private void PreparedDB() {
+        databases =new Databases(this,"giohang.sqlite",null,1);
 
-    private void getDuLieuDanhMuc() {
+        databases.QueryData("CREATE TABLE IF NOT EXISTS GioHang (MaSp INTEGER PRIMARY KEY AUTOINCREMENT, "+" TenSp VARCHAR(200),"
+                                +" HinhSp varchar(200),"+" GiaSp integer,"+" SoLuong integer)");
+//        databases.QueryData("insert into Works values (null, 'Fix bugs')");
+//        databases.QueryData("insert into Works values (null, 'Coding')");
+//        databases.QueryData("insert into Works values (null, 'Meeting')");
+//        databases.QueryData("insert into Works values (null, 'Walking')");
+    }
+    public static void getSanPhamGioHang(int soluong) {
+        Cursor cursor=databases.GetData("select * from GioHang");
+        dsGioHang.clear();
+        int maSp;
+        String tenSp;
+        String hinhSp;
+        int gia;
+        while (cursor.moveToNext()){
+            maSp=cursor.getInt(0);
+            tenSp=cursor.getString(1);
+            hinhSp=cursor.getString(2);
+            gia=cursor.getInt(3);
+            soluong=cursor.getInt(4);
+            //Log.i("=====soluongsanpham", ""+soluong);
+            dsGioHang.add(new GioHang(maSp,tenSp,hinhSp,gia,soluong));
+            Log.e("SanPham", "> MaSp: "+maSp+"> TenSp: "+tenSp+"> HinhSp: "+hinhSp+"> GiaSp: "+gia+"> SoLuong: "+soluong);
+        }
+    }
+    public static void getDanhSachGioHang() {
+        for (GioHang sp: dsGioHang
+             ) {
+            Log.d("SanPham", "> MaSp: "+sp.getMaSp()+"> TenSp: "+sp.getTenSp()+"> HinhSp: "+sp.getHinhSp()+"> GiaSp: "+sp.getGia()+"> SoLuong: "+sp.getSoLuongMua());
+        }
+    }
+
+     void getDuLieuDanhMuc() {
         final RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         getConnect connect = new getConnect();
         connect.setUrl("d");
@@ -310,10 +383,33 @@ public class MainActivity extends AppCompatActivity {
         soLuongGioHang=Integer.parseInt(txtSoLuong_GioHang.getText().toString());
         return soLuongGioHang;
     }
-    public static void thayDoiSoLuongGioHang(int sl){
-        Log.e(">", "main getSoLuong thay doi: "+sl);
-        if (sl>=0)
-        txtSoLuong_GioHang.setText(sl+"");
+
+    public static void themSanPham(SanPham sp,int soluong){
+        databases.QueryData("insert into GioHang values (null,'"+sp.getTenSp()+"','"+sp.getHinhSp()+"','"+sp.getGia()+"','"+soluong+"')");
+    }
+    public static void suaSanPham(SanPham sp,int soluong){
+        databases.QueryData("update GioHang set TenSp='"+sp.getTenSp()+"',HinhSp='"+sp.getHinhSp()+"',GiaSp='"+sp.getGia()+"',SoLuong='"+soluong+"' where MaSp='"+sp.getMaSp()+"'");
+    }
+    public static void xoaSanPham(SanPham sp){
+        databases.GetData("delete from GioHang where MaSp='"+sp.getMaSp()+"'");
+    }
+    public static void thayDoiSoLuongGioHang(int slSanPham,int slGioHang,SanPham sp){
+        Log.d("aloalaooalaoao", "<<<<  "+slGioHang);
+        if (slGioHang>=0) {
+            txtSoLuong_GioHang.setText(slGioHang + "");
+            if (slSanPham == 1) {
+                themSanPham(sp,slSanPham);
+            }
+            if(slSanPham>1){
+                suaSanPham(sp,slSanPham);
+            }
+        }else {
+            xoaSanPham(sp);
+        }
+
+        Log.i("-----SO LUONG", slSanPham+"" );
+        getSanPhamGioHang(slSanPham);
+        getDanhSachGioHang();
     }
 //    public static void getDuLieuSanPhamTheoDanhMuc() {
 //        final RequestQueue requestQueue = Volley.newRequestQueue(MainActivity.this);

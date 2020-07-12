@@ -1,7 +1,7 @@
 package ultil;
 
 public class getConnect {
-    private String host="192.168.1.109";
+    private String host="192.168.43.79";
     private String url;
 
     public getConnect setHost(String host) {

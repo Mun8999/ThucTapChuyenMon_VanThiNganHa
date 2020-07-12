@@ -44,7 +44,6 @@ public class chitietsanpham extends AppCompatActivity {
     ImageView imvSanPham;
     RatingBar rtDanhGia;
     TextView txtTenSanPham,txtGia,txtTenLoaiSp;
-    ProgressBar progressBarSLTon;
     ListView lvSanPham;
     String tenLoaiSp;
     ArrayList<SanPham> dsSanPham;
@@ -98,7 +97,6 @@ public class chitietsanpham extends AppCompatActivity {
         rtDanhGia=findViewById(R.id.rtDanhGia_ct);
         txtTenSanPham=findViewById(R.id.txtTenSanPham_ct);
         txtGia=findViewById(R.id.txtGia_ct);
-        progressBarSLTon=findViewById(R.id.progressBar);
         lvSanPham=findViewById(R.id.lvSanPham_ct);
         txtTenLoaiSp=findViewById(R.id.txtLoaiSanPham_ct);
         sanPhamAdapter=new SanPhamAdapter(chitietsanpham.this,dsSanPham);

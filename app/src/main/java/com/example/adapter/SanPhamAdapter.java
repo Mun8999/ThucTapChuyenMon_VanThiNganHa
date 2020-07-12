@@ -53,7 +53,7 @@ public class SanPhamAdapter extends BaseAdapter {
         Button btnAdd,btnDelete;
     }
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         final ViewHolder viewHolder;
         if(convertView==null){
             viewHolder=new ViewHolder();
@@ -97,7 +97,7 @@ public class SanPhamAdapter extends BaseAdapter {
                 slGioHang++;
                 editor.putInt("soLuongGioHang",slGioHang);
                 editor.commit();
-                MainActivity.thayDoiSoLuongGioHang(slGioHang);
+                MainActivity.thayDoiSoLuongGioHang(sl,slGioHang,dsSanPham.get(position));
                 Log.e("SanPham :",viewHolder.txtSoLuong.getText().toString() );
             }
         });
@@ -113,12 +113,13 @@ public class SanPhamAdapter extends BaseAdapter {
                 editor.commit();
                 slGioHang=MainActivity.getSoLuongGioHang();
                 slGioHang--;
-                MainActivity.thayDoiSoLuongGioHang(slGioHang);
+                MainActivity.thayDoiSoLuongGioHang(sl,slGioHang,dsSanPham.get(position));
             }
         });
         int soluong = preferences.getInt(sp.getMaSp()+"",0);
-        if(soluong!=0)
+        if(soluong!=0){
             viewHolder.txtSoLuong.setText(soluong+"");
+        }
         else
             viewHolder.txtSoLuong.setText("0");
         return convertView;
