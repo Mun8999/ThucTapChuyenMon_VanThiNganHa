@@ -14,7 +14,7 @@ Lớp: Công nghệ thông tin K58
     - Thêm sản phẩm vào giỏ hàng, lưu giỏ hàng của người dùng (khi người dùng tắt ứng dụng giỏ hàng vẫn lưu lại sản phẩm).
     - Quản lí giỏ hàng: thêm sửa xóa sản phẩm trong giỏ hàng.
     - Tiến hành đặt hàng: ứng dụng tự động định vị vị trí của người dùng để tìm ra địa chỉ và tính khoảng cách và phí vận chuyển sử dụng Google Map API,
-    tính tổng tiền.
+    tính tổng tiền, lưu lại lịch sử mua hàng.
     - Khuyến mãi: người dùng chọn khuyến mãi áp dụng cho hóa đơn, hóa đơn sẽ được giảm giá theo mã khuyến mãi.
 2. Hiển thị sản phẩm:
     - Hiển thị sản phẩm theo danh mục.
@@ -34,7 +34,7 @@ Lớp: Công nghệ thông tin K58
 ## Phần 3: Các chức năng chưa hoàn thành
 - Chưa xác thực số điện thoại khách hàng.
 - Phân quyền người dùng (người bán, người mua).
-- Thống kê, kiểm kê sản phẩm đối với người bán. Kiểm tra thông tin khách hàng, lịch sử mua hàng.
+- Thống kê, kiểm kê sản phẩm đối với người bán. Kiểm tra thông tin khách hàng.
 - Thêm xóa, sửa, sản phẩm.
 - Gửi mail hóa đơn sản phẩm.
 - Upload trên CHplay store của Android
