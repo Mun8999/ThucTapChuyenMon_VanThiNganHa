@@ -1,7 +1,7 @@
 # THỰC TẬP CHUYÊN MÔN NĂM HỌC 2019-2020
-Họ tên: Văn Thị Ngân Hà
-Mã sinh viên: 5851071021
-Lớp: Công nghệ thông tin K58
++ Họ tên: Văn Thị Ngân Hà
++ Mã sinh viên: 5851071021
++ Lớp: Công nghệ thông tin K58
 ## Đề tài: Ứng dụng đặt bánh ngọt - Mobile App
 ## Phần 1: Công nghệ sử dụng
 - Android Studio, Google Map API, Google API
