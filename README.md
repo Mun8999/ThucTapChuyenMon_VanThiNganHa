@@ -6,7 +6,7 @@ Lớp: Công nghệ thông tin K58
 ## Phần 1: Công nghệ sử dụng
 - Android Studio, Google Map API, Google API
 - Sử dụng ngôn ngữ JAVA, PHP, json
-- Đưa cơ sở dữ liệu lên webserver
+
 
 ## Phần 2: Các chức năng đã hoàn thành
 1. Mua hàng:
@@ -23,14 +23,13 @@ Lớp: Công nghệ thông tin K58
 3. Quảng cáo, khuyến mãi;
     - Chạy hình ảnh quảng cáo khuyến mãi.
     - Khuyến mãi được xét theo:
-        + Khuyến mãi theo mãi
+        + Khuyến mãi theo sự kiện
         + Khuyến mãi theo loại khách hàng (khách hàng thân thiết sẽ nhận được mã khuyến mãi theo cấp bậc thành viên (thường, bạc, vàng))
 4. Tìm kiếm: tìm kiếm theo tên sản phẩm
 5. Đăng kí/ đăng nhập cho thành viên mua hàng:
     - Đăng kí thành viên
     - Đăng nhập thành viên.
 6. Đóng gói sản phẩm thành app 
-
 ## Phần 3: Các chức năng chưa hoàn thành
 - Chưa xác thực số điện thoại khách hàng.
 - Phân quyền người dùng (người bán, người mua).
@@ -38,7 +37,6 @@ Lớp: Công nghệ thông tin K58
 - Thêm xóa, sửa, sản phẩm.
 - Gửi mail hóa đơn sản phẩm.
 - Upload trên CHplay store của Android
-
 ## Hướng dẫn sử dụng
 1. Mở ứng dụng.
 2. Chọn sản phẩm, thêm vào giỏ hàng.
